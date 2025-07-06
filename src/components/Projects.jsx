@@ -1,4 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
+import cb from '../assets/cb.png';
+import tour from '../assets/tour.jpg';
+import aqCuisine from '../assets/aqCuisine.jpg';
+import infohub from '../assets/infohub.jpg';
+import cab from '../assets/cab.jpg';
+import hospital from '../assets/hospital.jpg';
+import scoreboard from '../assets/scoreboard.jpg';
+import socket from '../assets/socket.jpg';
 import { Github, ExternalLink, Code, Zap, ArrowRight } from 'lucide-react';
 
 function Projects() {
@@ -13,8 +21,8 @@ function Projects() {
       description: "Developed a responsive frontend (React, Tailwind CSS) and efficient backend (Node.js, Express, PostgreSQL) for vehicle trading and comparison. Engineered user authentication, admin panel, and automated email notifications.",
       tech: ["React", "Node.js", "Express", "PostgreSQL", "Tailwind CSS"],
       githubUrl: "https://github.com/AmmarQasmi/CarBazaar",
-      image: "https://images.unsplash.com/photo-1511918984145-48de785d4c4e?w=500&h=300&fit=crop",
-      category: "Full Stack"
+      image: cb,
+      category: "Web App"
     },
     {
       id: 2,
@@ -22,7 +30,7 @@ function Projects() {
       description: "A travel platform offering real-time chatbot help and seamless client-agent coordination. Built with React, Express, Tailwind CSS, Python, and Redux. Key features: Email-verified user signup, Booking dashboards for clients and agents, Integrated messaging & dark mode support, Scalable backend with Nodemailer & protected routes.",
       tech: ["React", "Express", "Tailwind CSS", "Python", "Redux"],
       githubUrl: "https://github.com/AmmarQasmi/TourPlanner",
-      image: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=500&h=300&fit=crop",
+      image: tour,
       category: "Web App"
     },
     {
@@ -31,8 +39,8 @@ function Projects() {
       description: "A React + Tailwind CSS single-page application (SPA) built with React Router. Key highlights: Recipe search using Spoonacular API, Save and manage favorite recipes, User authentication with EmailJS-based signup confirmation, Responsive design with black-orange theme and fixed header/footer.",
       tech: ["React", "Tailwind CSS", "React Router", "EmailJS", "Spoonacular API"],
       githubUrl: "https://github.com/AmmarQasmi/AQCuisine",
-      image: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=500&h=300&fit=crop",
-      category: "SPA"
+      image: aqCuisine,
+      category: "Web App"
     },
     {
       id: 4,
@@ -40,8 +48,8 @@ function Projects() {
       description: "A multi-functional, responsive site built with HTML, CSS, and JavaScript. Features include: Live currency conversion via CurrencyAPI, Length and unit converters with manual calculations, Interactive UI with DOM manipulation, navbar, and dropdowns, Five-page layout: Home, Length Converter, Currency Converter, Unit Converter, Contact.",
       tech: ["HTML", "CSS", "JavaScript", "CurrencyAPI"],
       githubUrl: "https://github.com/AmmarQasmi/InfoHub",
-      image: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=500&h=300&fit=crop",
-      category: "Utility"
+      image: infohub,
+      category: "Web App"
     },
     {
       id: 5,
@@ -49,8 +57,8 @@ function Projects() {
       description: "Developed a simulation of a taxi dispatch system featuring user authentication, ride booking, and fare generation. Implemented Dijkstra's algorithm for efficient route planning using graph structures.",
       tech: ["C++", "OOP", "Data Structures", "Algorithms"],
       githubUrl: "https://github.com/AmmarQasmi/Cab_Management_System",
-      image: "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=500&h=300&fit=crop",
-      category: "Algorithm"
+      image: cab,
+      category: "Data Structures & Algorithm"
     },
     {
       id: 6,
@@ -58,8 +66,8 @@ function Projects() {
       description: "Developed a comprehensive hospital management system using C++ with features for patient registration, doctor management, appointment scheduling, and medical records tracking.",
       tech: ["C++", "OOP", "Data Structures", "File Handling"],
       githubUrl: "https://github.com/AmmarQasmi/Hospital_Management_System_OOP",
-      image: "https://images.unsplash.com/photo-1519494080410-f9aa8f52f530?w=500&h=300&fit=crop",
-      category: "Management"
+      image: hospital,
+      category: "OOP"
     },
     {
       id: 7,
@@ -67,8 +75,8 @@ function Projects() {
       description: "Built a scoreboard system using C programming for tracking and displaying game scores, player statistics, and match results with real-time updates and data persistence.",
       tech: ["C", "Data Structures", "File I/O"],
       githubUrl: "https://github.com/AmmarQasmi/Cricket-Scoreboard-System",
-      image: "https://images.unsplash.com/photo-1519125323398-675f0ddb6308?w=500&h=300&fit=crop",
-      category: "Sports"
+      image: scoreboard,
+      category: "Programming Fundamentals"
     },
     {
       id: 8,
@@ -76,8 +84,8 @@ function Projects() {
       description: "Practiced creating and binding sockets in Python by developing a variety of client-server programs. Implemented features ranging from basic connection setup to dynamic data handling. Projects included a factorial and prime number checker, a calculator, a palindrome validator, and string reversal. Emphasized real-time interaction by processing user inputs from the client side and generating responses on the server side.",
       tech: ["Python", "Socket Programming"],
       githubUrl: "https://github.com/AmmarQasmi/Socket_Programming",
-      image: "https://images.unsplash.com/photo-1465101046530-73398c7f28ca?w=500&h=300&fit=crop",
-      category: "Network"
+      image: socket,
+      category: "Network Programming"
     }
   ];
 

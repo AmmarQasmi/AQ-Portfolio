@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Phone, Mail, MapPin, Facebook, Instagram, Linkedin, Send, CheckCircle, AlertCircle , UserRound } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Phone, Mail, MapPin, Facebook, Instagram, Linkedin, Send, CheckCircle, AlertCircle, UserRound } from 'lucide-react';
 
 export default function EnhancedContactForm() {
   const [formData, setFormData] = useState({
@@ -15,6 +15,23 @@ export default function EnhancedContactForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState(null);
   const [errors, setErrors] = useState({});
+  const [emailJSLoaded, setEmailJSLoaded] = useState(false);
+
+  // Load EmailJS script
+  useEffect(() => {
+    const script = document.createElement('script');
+    script.src = 'https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js';
+    script.onload = () => {
+      // Initialize EmailJS with your public key
+      window.emailjs.init("eXWi5rgljOqmENQAL"); // Replace with your actual public key
+      setEmailJSLoaded(true);
+    };
+    document.body.appendChild(script);
+
+    return () => {
+      document.body.removeChild(script);
+    };
+  }, []);
 
   const validateForm = () => {
     const newErrors = {};
@@ -47,17 +64,37 @@ export default function EnhancedContactForm() {
   };
 
   const handleSubmit = async () => {
-    
     if (!validateForm()) return;
+
+    if (!emailJSLoaded) {
+      setSubmitStatus('error');
+      return;
+    }
     
     setIsSubmitting(true);
     setSubmitStatus(null);
     
     try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 2000));
-      
-      console.log('Form submitted:', { ...formData, requestType: selectedContact });
+      // Prepare template parameters
+      const templateParams = {
+        from_name: `${formData.firstName} ${formData.lastName}`,
+        from_email: formData.email,
+        phone: formData.phone,
+        subject: formData.subject || `${selectedContact} inquiry`,
+        message: formData.message,
+        request_type: selectedContact,
+        title: formData.subject || `${selectedContact} inquiry from ${formData.firstName}`,
+        reply_to: formData.email
+      };
+
+      // Send email using EmailJS
+      const result = await window.emailjs.send(
+        'service_y5f7rib', // Replace with your actual service ID from Email Services
+        'template_cj4jinp', // Replace with your actual template ID
+        templateParams
+      );
+
+      console.log('Email sent successfully:', result);
       setSubmitStatus('success');
       
       // Reset form after successful submission
@@ -72,6 +109,7 @@ export default function EnhancedContactForm() {
       setSelectedContact('personal');
       
     } catch (error) {
+      console.error('EmailJS error:', error);
       setSubmitStatus('error');
     } finally {
       setIsSubmitting(false);
@@ -129,7 +167,7 @@ export default function EnhancedContactForm() {
                       
                       <div className="flex items-center space-x-4 group">
                         <div className="p-3 bg-white/20 rounded-full group-hover:bg-white/30 transition-all duration-200">
-                          <UserRound  className="w-5 h-5" />
+                          <UserRound className="w-5 h-5" />
                         </div>
                         <div>
                           <p className="font-medium">Contact Person</p>
@@ -169,6 +207,14 @@ export default function EnhancedContactForm() {
                     <p className="text-blue-100 text-base sm:text-lg">Let's start a conversation</p>
                   </div>
 
+                  {/* EmailJS Status */}
+                  {!emailJSLoaded && (
+                    <div className="mb-6 p-4 bg-blue-500/20 border border-blue-400/30 rounded-lg flex items-center space-x-3">
+                      <div className="w-5 h-5 border-2 border-blue-400/30 border-t-blue-400 rounded-full animate-spin"></div>
+                      <p className="text-blue-100">Loading email service...</p>
+                    </div>
+                  )}
+
                   {/* Success/Error Messages */}
                   {submitStatus === 'success' && (
                     <div className="mb-6 p-4 bg-green-500/20 border border-green-400/30 rounded-lg flex items-center space-x-3">
@@ -180,7 +226,7 @@ export default function EnhancedContactForm() {
                   {submitStatus === 'error' && (
                     <div className="mb-6 p-4 bg-red-500/20 border border-red-400/30 rounded-lg flex items-center space-x-3">
                       <AlertCircle className="w-5 h-5 text-red-400" />
-                      <p className="text-red-100">Something went wrong. Please try again.</p>
+                      <p className="text-red-100">Failed to send message. Please try again or contact us directly.</p>
                     </div>
                   )}
 
@@ -242,6 +288,18 @@ export default function EnhancedContactForm() {
                     </div>
 
                     <div>
+                      <label className="block text-sm font-medium text-blue-100 mb-2">Subject (Optional)</label>
+                      <input
+                        type="text"
+                        name="subject"
+                        value={formData.subject}
+                        onChange={handleInputChange}
+                        className={inputClasses('subject')}
+                        placeholder="Brief subject of your message"
+                      />
+                    </div>
+
+                    <div>
                       <label className="block text-sm font-medium text-blue-100 mb-3">What type of request do you need?</label>
                       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2 sm:gap-3">
                         {[
@@ -280,7 +338,7 @@ export default function EnhancedContactForm() {
                     <button
                       type="button"
                       onClick={handleSubmit}
-                      disabled={isSubmitting}
+                      disabled={isSubmitting || !emailJSLoaded}
                       className="w-full bg-gradient-to-r from-purple-500 via-purple-600 to-indigo-600 
                         hover:from-purple-600 hover:via-purple-700 hover:to-indigo-700 
                         disabled:from-gray-500 disabled:via-gray-600 disabled:to-gray-700

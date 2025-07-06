@@ -1,4 +1,4 @@
-import { Outlet, Link } from 'react-router-dom';
+import { Outlet, Link, useLocation, useNavigate } from 'react-router-dom';
 import { useState, useEffect, useRef } from 'react';
 import { Menu, X, Code, Zap, Star, ArrowUp } from 'lucide-react';
 import headerBg from './assets/header.png';
@@ -10,6 +10,8 @@ function Layout() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [hideHeader, setHideHeader] = useState(false);
   const lastScrollY = useRef(0);
+  const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -47,20 +49,24 @@ function Layout() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const handleNavClick = (e, sectionId) => {
+  const handleNavClick = (e, item) => {
     e.preventDefault();
     setMobileMenuOpen(false);
-    
-    if (sectionId === 'home') {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (item.id === 'home') {
+      if (location.pathname !== '/') {
+        navigate('/');
+      } else {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
       return;
     }
-    
-    const element = document.getElementById(sectionId);
-    if (element) {
-      const headerHeight = 80;
-      const elementPosition = element.offsetTop - headerHeight;
-      window.scrollTo({ top: elementPosition, behavior: 'smooth' });
+    if (location.pathname !== '/') {
+      navigate(item.to);
+    } else {
+      const el = document.getElementById(item.id);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth' });
+      }
     }
   };
 
@@ -113,7 +119,7 @@ function Layout() {
         <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16 lg:h-20">
             {/* Logo */}
-            <div className="flex items-center group">
+            <Link to="/" className="flex items-center group">
               <div className="relative">
                 <h1 className="text-2xl lg:text-3xl font-black text-white transition-all duration-300 group-hover:scale-105">
                   <span className="text-white">Port</span>
@@ -122,14 +128,15 @@ function Layout() {
                 <div className="absolute -bottom-1 left-0 w-full h-0.5 bg-gradient-to-r from-purple-400 to-white transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500"></div>
               </div>
               <div className="ml-2 w-2 h-2 bg-purple-400 rounded-full animate-pulse"></div>
-            </div>
+            </Link>
 
             {/* Desktop Navigation */}
             <div className="hidden md:flex items-center space-x-1 lg:space-x-2">
               {navItems.map((item) => (
-                <Link
+                <a
                   key={item.id}
-                  to={item.to}
+                  href={item.to}
+                  onClick={e => handleNavClick(e, item)}
                   className="group relative px-4 lg:px-6 py-2 lg:py-3 text-white/90 hover:text-white transition-all duration-300 flex items-center space-x-2 rounded-full hover:bg-white/10 backdrop-blur-sm"
                 >
                   <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300">
@@ -137,7 +144,7 @@ function Layout() {
                   </div>
                   <span className="font-medium">{item.label}</span>
                   <div className="absolute inset-0 rounded-full bg-gradient-to-r from-purple-500/20 to-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10"></div>
-                </Link>
+                </a>
               ))}
             </div>
 
@@ -167,12 +174,12 @@ function Layout() {
             <div className="bg-purple-800/95 backdrop-blur-lg rounded-2xl mx-4 mb-4 border border-white/10 shadow-2xl">
               <div className="p-4 space-y-2">
                 {navItems.map((item, index) => (
-                  <Link
+                  <a
                     key={item.id}
-                    to={item.to}
+                    href={item.to}
+                    onClick={e => handleNavClick(e, item)}
                     className="group flex items-center space-x-3 px-4 py-3 text-white/90 hover:text-white transition-all duration-300 rounded-xl hover:bg-white/10"
                     style={{ transitionDelay: `${index * 50}ms` }}
-                    onClick={() => setMobileMenuOpen(false)}
                   >
                     <div className="opacity-70 group-hover:opacity-100 transition-opacity duration-300">
                       {item.icon}
@@ -181,7 +188,7 @@ function Layout() {
                     <div className="ml-auto opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                       <ArrowUp className="w-4 h-4 transform -rotate-45" />
                     </div>
-                  </Link>
+                  </a>
                 ))}
               </div>
             </div>
