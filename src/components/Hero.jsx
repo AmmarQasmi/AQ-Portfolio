@@ -26,12 +26,13 @@ function Hero() {
             </h1>
             
             <p className="text-xl sm:text-2xl lg:text-3xl text-purple-200 mb-8 font-light drop-shadow-lg">
-              Full Stack Developer & Creative Problem Solver
+              Full Stack Developer | AI Engineer 
             </p>
             
             <p className="text-lg sm:text-xl text-purple-200 mb-12 max-w-2xl mx-auto leading-relaxed drop-shadow-lg">
-              I build beautiful, functional, and user-centered digital experiences. 
+              I build Responsive, functional, and user-centered digital experiences. 
               Passionate about clean code, innovative solutions, and creating impactful web applications.
+              I am also also learning frameworks like n8n LangChain and LangGraph, LLama to make AI agents and applications.
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
