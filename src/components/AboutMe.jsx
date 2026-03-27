@@ -166,15 +166,27 @@ function AboutMe() {
               </div>
             </div>
 
-            <div className="pt-6">
-              <a href="/AmmarQasmi_2025.pdf" download="AmmarQasmi_2025.pdf">
+            <div className="pt-6 flex flex-col gap-3 w-full max-w-xs">
+              <a href="/ammar_qasmi_AI_resume.pdf" download="ammar_qasmi_AI_resume.pdf" className="w-full">
                 <button
-                  className="bg-gradient-to-r from-purple-500 via-indigo-600 to-blue-600 
+                  className="w-full bg-gradient-to-r from-purple-500 via-indigo-600 to-blue-600 
                     hover:from-purple-600 hover:via-indigo-700 hover:to-blue-700 
                     text-white font-semibold py-3 px-8 rounded-lg transition-all duration-300 
                     transform hover:scale-105 shadow-lg relative overflow-hidden group"
                 >
-                  <span className="relative z-10">Download Resume</span>
+                  <span className="relative z-10">Download AI Resume</span>
+                  <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-blue-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                </button>
+              </a>
+
+              <a href="/Ammar%20Qasmi.pdf" download="Ammar Qasmi.pdf" className="w-full">
+                <button
+                  className="w-full bg-gradient-to-r from-purple-500 via-indigo-600 to-blue-600 
+                    hover:from-purple-600 hover:via-indigo-700 hover:to-blue-700 
+                    text-white font-semibold py-3 px-8 rounded-lg transition-all duration-300 
+                    transform hover:scale-105 shadow-lg relative overflow-hidden group"
+                >
+                  <span className="relative z-10">Download Fullstack Resume</span>
                   <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-blue-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 </button>
               </a>

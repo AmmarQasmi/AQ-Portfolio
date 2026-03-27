@@ -17,6 +17,30 @@ function Projects() {
   const projects = [
     {
       id: 1,
+      title: "TripVerse",
+      description: "TripVerse - AI-Powered Travel Platform (Final Year Project). Built a full travel booking platform from scratch with flights, hotels, vehicles, and payments in one place. Added an LLM-based itinerary planner that generates day-by-day trip plans based on user preferences. Shipped an AI travel chatbot for Q&A, place suggestions, packing lists, and complete itineraries. Integrated Google Maps, Places, Vision, Weather, and Wikipedia APIs to deliver a live, location-aware experience. Backend: NestJS + Prisma + PostgreSQL, frontend: Next.js, deployed on Render and Vercel.",
+      tech: ["Next.js", "NestJS", "Prisma", "PostgreSQL", "LLM", "Google APIs"],
+      githubUrls: [
+        { label: "Frontend", url: "https://github.com/AmmarQasmi/TripVerse-Frontend" },
+        { label: "Backend", url: "https://github.com/AmmarQasmi/TripVerse-Backend" }
+      ],
+      image: tour,
+      category: "Final Year Project"
+    },
+    {
+      id: 2,
+      title: "Quantiva",
+      description: "AI Sentiment Analysis System (Crypto / Stocks). Built a real-time pipeline that reads financial news and outputs market sentiment scores using FinBERT and OpenAI. Pulled data from LunarCrush and CryptoNews APIs, then classified signals as bullish or bearish. Improved reliability by fixing preprocessing edge cases that were causing noisy and inconsistent outputs.",
+      tech: ["FinBERT", "OpenAI", "LunarCrush API", "CryptoNews API", "Python"],
+      githubUrls: [
+        { label: "Frontend", url: "https://github.com/developer-bytespak/QuantivaHQ-frontend" },
+        { label: "Backend", url: "https://github.com/developer-bytespak/quantiva_backend" }
+      ],
+      image: infohub,
+      category: "AI / FinTech"
+    },
+    {
+      id: 3,
       title: "Car Bazaar",
       description: "Developed a responsive frontend (React, Tailwind CSS) and efficient backend (Node.js, Express, PostgreSQL) for vehicle trading and comparison. Engineered user authentication, admin panel, and automated email notifications.",
       tech: ["React", "Node.js", "Express", "PostgreSQL", "Tailwind CSS"],
@@ -25,7 +49,7 @@ function Projects() {
       category: "Web App"
     },
     {
-      id: 2,
+      id: 4,
       title: "Tour Planner",
       description: "A travel platform offering real-time chatbot help and seamless client-agent coordination. Built with React, Express, Tailwind CSS, Python, and Redux. Key features: Email-verified user signup, Booking dashboards for clients and agents, Integrated messaging & dark mode support, Scalable backend with Nodemailer & protected routes.",
       tech: ["React", "Express", "Tailwind CSS", "Python", "Redux"],
@@ -34,7 +58,7 @@ function Projects() {
       category: "Web App"
     },
     {
-      id: 3,
+      id: 5,
       title: "AQ Cuisine",
       description: "A React + Tailwind CSS single-page application (SPA) built with React Router. Key highlights: Recipe search using Spoonacular API, Save and manage favorite recipes, User authentication with EmailJS-based signup confirmation, Responsive design with black-orange theme and fixed header/footer.",
       tech: ["React", "Tailwind CSS", "React Router", "EmailJS", "Spoonacular API"],
@@ -43,7 +67,7 @@ function Projects() {
       category: "Web App"
     },
     {
-      id: 4,
+      id: 6,
       title: "InfoHub",
       description: "A multi-functional, responsive site built with HTML, CSS, and JavaScript. Features include: Live currency conversion via CurrencyAPI, Length and unit converters with manual calculations, Interactive UI with DOM manipulation, navbar, and dropdowns, Five-page layout: Home, Length Converter, Currency Converter, Unit Converter, Contact.",
       tech: ["HTML", "CSS", "JavaScript", "CurrencyAPI"],
@@ -52,7 +76,7 @@ function Projects() {
       category: "Web App"
     },
     {
-      id: 5,
+      id: 7,
       title: "Cab Management System",
       description: "Developed a simulation of a taxi dispatch system featuring user authentication, ride booking, and fare generation. Implemented Dijkstra's algorithm for efficient route planning using graph structures.",
       tech: ["C++", "OOP", "Data Structures", "Algorithms"],
@@ -61,7 +85,7 @@ function Projects() {
       category: "Data Structures & Algorithm"
     },
     {
-      id: 6,
+      id: 8,
       title: "Hospital Management System",
       description: "Developed a comprehensive hospital management system using C++ with features for patient registration, doctor management, appointment scheduling, and medical records tracking.",
       tech: ["C++", "OOP", "Data Structures", "File Handling"],
@@ -70,7 +94,7 @@ function Projects() {
       category: "OOP"
     },
     {
-      id: 7,
+      id: 9,
       title: "ScoreBoard Project",
       description: "Built a scoreboard system using C programming for tracking and displaying game scores, player statistics, and match results with real-time updates and data persistence.",
       tech: ["C", "Data Structures", "File I/O"],
@@ -79,7 +103,7 @@ function Projects() {
       category: "Programming Fundamentals"
     },
     {
-      id: 8,
+      id: 10,
       title: "Socket Programming",
       description: "Practiced creating and binding sockets in Python by developing a variety of client-server programs. Implemented features ranging from basic connection setup to dynamic data handling. Projects included a factorial and prime number checker, a calculator, a palindrome validator, and string reversal. Emphasized real-time interaction by processing user inputs from the client side and generating responses on the server side.",
       tech: ["Python", "Socket Programming"],
@@ -171,14 +195,30 @@ function Projects() {
                   <div className={`absolute inset-0 flex items-center justify-center transition-all duration-300 ${
                     hoveredProject === project.id ? 'opacity-100' : 'opacity-0'
                   }`}>
-                    <a
-                      href={project.githubUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="p-3 bg-white/20 backdrop-blur-sm rounded-full hover:bg-white/30 transition-all duration-300 transform hover:scale-110"
-                    >
-                      <Github className="w-6 h-6 text-white" />
-                    </a>
+                    {project.githubUrls ? (
+                      <div className="flex items-center gap-3">
+                        {project.githubUrls.map((link) => (
+                          <a
+                            key={link.url}
+                            href={link.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="px-4 py-2 bg-white/20 backdrop-blur-sm rounded-full hover:bg-white/30 transition-all duration-300 transform hover:scale-105 text-white text-sm font-medium"
+                          >
+                            {link.label}
+                          </a>
+                        ))}
+                      </div>
+                    ) : (
+                      <a
+                        href={project.githubUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="p-3 bg-white/20 backdrop-blur-sm rounded-full hover:bg-white/30 transition-all duration-300 transform hover:scale-110"
+                      >
+                        <Github className="w-6 h-6 text-white" />
+                      </a>
+                    )}
                   </div>
                 </div>
 
@@ -208,15 +248,32 @@ function Projects() {
                   </div>
 
                   {/* Project Link */}
-                  <a
-                    href={project.githubUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center space-x-2 text-white hover:text-white/80 transition-colors font-medium"
-                  >
-                    <span>View Code</span>
-                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                  </a>
+                  {project.githubUrls ? (
+                    <div className="flex items-center gap-4">
+                      {project.githubUrls.map((link) => (
+                        <a
+                          key={link.url}
+                          href={link.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center space-x-2 text-white hover:text-white/80 transition-colors font-medium"
+                        >
+                          <span>{`View ${link.label}`}</span>
+                          <ArrowRight className="w-4 h-4" />
+                        </a>
+                      ))}
+                    </div>
+                  ) : (
+                    <a
+                      href={project.githubUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center space-x-2 text-white hover:text-white/80 transition-colors font-medium"
+                    >
+                      <span>View Code</span>
+                      <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                    </a>
+                  )}
                 </div>
               </div>
             </div>
